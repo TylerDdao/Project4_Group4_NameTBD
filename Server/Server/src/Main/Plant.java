@@ -1,69 +1,49 @@
 package Main;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.JLabel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
-import javax.swing.ListSelectionModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-
-public class Plant extends JFrame {
-
-	private static final long serialVersionUID = 1L;
-    private JPanel contentPane;
-    private CardLayout cardLayout;
-    private JPanel mainPanel;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Plant frame = new Plant();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+public class Plant {
+	private int id;
+	private String name;
+	private float price;
+	private int quantity;
+	private String imagePath;
+	
 	public Plant() {
-		setTitle("Multi-page Application");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 840, 700);
-        contentPane = new JPanel();
-        contentPane.setLayout(new BorderLayout());
-        setContentPane(contentPane);
-
-        // Initialize the CardLayout and main panel
-        cardLayout = new CardLayout();
-        mainPanel = new JPanel(cardLayout);
-        contentPane.add(mainPanel, BorderLayout.CENTER);
-
-        // Add pages to the CardLayout
-//        mainPanel.add(new Page1(mainPanel, cardLayout), "Page 1");
-//        mainPanel.add(new Page2(mainPanel, cardLayout), "Page 2");
-//        mainPanel.add(new Page3(mainPanel, cardLayout), "Page 3");
-        //mainPanel.add(new Sign_up(), "Sign Up");
-        mainPanel.add(new Log_in(), "Log In");
+		this.id = -1;
+		this.name = null;
+		this.price = 0;
+		this.quantity = -1;
+		this.imagePath = null;
 	}
-
+	
+	public Plant(int id, String name, float price, int quantity, String imagePath) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+		this.imagePath = imagePath;
+	}
+	
+	public int GetId() {
+		return id;
+	}
+	
+	public void SetQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+	public String GetName() {
+		return name;
+	}
+	
+	public float GetPrice() {
+		return price;
+	}
+	
+	public int GetQuantity() {
+		return quantity;
+	}
+	
+	public String GetImagePath() {
+		return imagePath;
+	}
 }

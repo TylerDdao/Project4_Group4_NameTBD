@@ -7,6 +7,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Rectangle;
 import javax.swing.JButton;
+
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,7 +25,7 @@ public class Sign_up extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Sign_up() {
+	public Sign_up(JPanel mainPanel, CardLayout cardLayout) {
 		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Sign Up");
@@ -62,7 +64,7 @@ public class Sign_up extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				DatabaseHandler db = new DatabaseHandler();
-				Account newAccount = new Account(fName.getText(), lName.getText(), email.getText(), password.getText());
+				Account newAccount = new Account(fName.getText(), lName.getText(), email.getText(), Integer.toString(password.getText().hashCode()));
 				String url = "jdbc:mysql://localhost:3306/project4"; // Replace with your DB info
 	            String user = "root"; // Replace with your DB username
 	            String password = "Nam@326389"; // Replace with your DB password
@@ -78,6 +80,12 @@ public class Sign_up extends JPanel {
 		add(btnNewButton);
 		
 		JButton btnBackToLog = new JButton("Back to log in page");
+		btnBackToLog.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(mainPanel, "Log In");
+			}
+		});
 		btnBackToLog.setForeground(new Color(85, 169, 85));
 		btnBackToLog.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		btnBackToLog.setBounds(220, 474, 400, 40);

@@ -1,5 +1,5 @@
 create database project4;
-
+use project4;
 CREATE TABLE Accounts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     fName VARCHAR(100),
@@ -12,7 +12,8 @@ Create table Plants(
 	id INT auto_increment primary key,
     name varchar(100),
     price float,
-    quantity int
+    quantity int,
+    imagePath varchar(100)
 );
 
 Create table Orders(
@@ -30,3 +31,9 @@ Create table Order_items(
     foreign key (oId) references Orders(id),
     foreign key (pId) references Plants(id)
 );
+
+Select*from Accounts;
+
+delete from accounts where id=4;
+
+Select count(*) from Accounts where email = "tyler@gmail.com" and password = "Nam@326389";

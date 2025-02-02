@@ -108,7 +108,7 @@ public class ImageInTableApp extends JFrame {
 
         // Set up the layout of the frame
         JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane, BorderLayout.CENTER);
+        getContentPane().add(scrollPane, BorderLayout.CENTER);
     }
 
     // Method to create a row of data
@@ -118,7 +118,7 @@ public class ImageInTableApp extends JFrame {
         row.add(name);
         
         // Load the image as an ImageIcon
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\baona\\OneDrive - Conestoga College\\School\\24-25\\WINTER 25\\Project 4\\Project 4\\Server\\Server\\src\\images" + imageFileName);
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\baona\\OneDrive - Conestoga College\\School\\24-25\\WINTER 25\\Project 4\\Project 4\\Server\\Server\\src\\resources\\images" + imageFileName);
         row.add(imageIcon);
 
         // Create the "Buy" button

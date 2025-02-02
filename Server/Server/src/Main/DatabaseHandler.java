@@ -1,6 +1,7 @@
 package Main;
 
 import java.sql.*;
+import java.util.*;
 
 public class DatabaseHandler {
 	private static String url;
@@ -29,9 +30,35 @@ public class DatabaseHandler {
         }
 	}
 	
-	public void InsertNewAccount(Account a) {
+	public Boolean CheckDuplicatedEmail(String email) {
+		String query = "Select count(*) from Accounts where email = ?";
+		try {
+			pstm = connection.prepareStatement(query);
+			pstm.setString(1, email);
+			
+			resultSet = pstm.executeQuery();
+			resultSet.next();
+			int rowReturned = resultSet.getInt(1);
+			if(rowReturned == 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		catch(Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+		return false;
+	}
+	
+	public Boolean InsertNewAccount(Account a) {
 		String query = "Insert into Accounts (fName, lName, email, password) values (?,?,?,?)";
 		try {
+			if(!CheckDuplicatedEmail(a.GetEmail())) {
+				System.out.println("Email is already used");
+				return false;
+			}
 			pstm = connection.prepareStatement(query);
 			pstm.setString(1, a.GetFName());
 			pstm.setString(2, a.GetLName());
@@ -41,12 +68,13 @@ public class DatabaseHandler {
 			int rowInserted = pstm.executeUpdate();
 			if(rowInserted > 0) {
 				System.out.println("Inserted successfully");
+				return true;
 			}
 		}
 		catch(Exception e) {
 			System.out.println("Error: " + e.getMessage());
 		}
-		
+		return false;
 	}
 	
 	public Boolean AuthenticateLogin(String email, String password) {
@@ -70,6 +98,35 @@ public class DatabaseHandler {
 			System.out.println("Error: " + e.getMessage());
 		}
 		return false;
+	}
+	
+	public Vector<Plant> FetchPlantsList(){
+		Vector<Plant> plantsList = new Vector<>();
+		String query = "Select * from Plants";
+		try {
+			pstm = connection.prepareStatement(query);
+			resultSet = pstm.executeQuery();
+			while(resultSet.next()) {
+			//resultSet.next();
+			int id = resultSet.getInt(1);
+			String name = resultSet.getString(2);
+			float price = resultSet.getFloat(3);
+			int quantity = resultSet.getInt(4);
+			String imagePath = resultSet.getString(5);
+			System.out.println("ID: " + id);
+			System.out.println("Name: " + name);
+			System.out.println("Price: " + price);
+			System.out.println("Quantity: " + quantity);
+			System.out.println("Image Path: " + imagePath);
+			System.out.println("---------------");
+			Plant newPlant = new Plant(id, name, price, quantity, imagePath);
+			plantsList.add(newPlant);
+			}
+		}
+		catch(Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+		return plantsList;
 	}
 	
 }
