@@ -6,10 +6,6 @@ public class Message extends SocketHandler {
 	
 	private byte[] rawData;
 	
-	public Message() {
-		
-	}
-	
 	public Message(byte[] data) {
 		ByteBuffer buffer = ByteBuffer.wrap(data);
 		this.length = buffer.getInt();

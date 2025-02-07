@@ -34,6 +34,8 @@ Create table Order_items(
 
 Select*from Accounts;
 
+Select*from Plants;
+
 delete from accounts where id=4;
 
 Select count(*) from Accounts where email = "tyler@gmail.com" and password = "Nam@326389";
